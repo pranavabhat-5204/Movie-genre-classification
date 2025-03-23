@@ -33,9 +33,9 @@ y_train = y_train[:15000]
 X_test = vectorizer.transform(x_test)[:1000]
 y_test = y_test[:1000]
 
-# Using a SVC model for this task
+# Using a SVC model for this task. We set the kernel to sigmoid in order to  obtain non-linear calssifications if possible.
 
-clf = SVC(kernel='linear')
+clf = SVC(kernel='sigmoid')
 clf.fit(X_train, y_train)
 
 # Finding the accuracy of the model
