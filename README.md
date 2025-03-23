@@ -12,5 +12,5 @@ Now about the steps involved in this model:
 4. I used the TfidfVectorizer to convert the texts to some numeral format using their frequencies in the document.
 5. The features needs conversion to numerical format while label does not as the label consists for fixed terms of genre type.
 6. I used SVC model for this text classification as these are labelled data and SVC is generally good with such data.
-7. It achieved an accuracy of about 0.7 or 70%
+7. It achieved an accuracy of about 0.7 or 70%. With kernel='linear' we get about 0.62 accuracy which increases to 0.7 when kernel='sigmoid'.
 8. SVC is less scalable so naive bayes classifier is another option for such data.
