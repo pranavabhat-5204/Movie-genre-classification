@@ -1,30 +1,44 @@
-!pip install matplotlib.pyplot
+# This is done using google colab and the following libraries are needed. Pandas and numpy are generally inbuilt with it
+
 !pip install sklearn
 !pip install pandas
+!pip install numpy
+
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+import numpy as np
 
+# Dataset to pandas dataframe
 
-vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7)
-
-
-train=pd.read_csv('/content/train_data.txt',sep=':::',names=['id','title','genre','description'])
+train=pd.read_csv('/content/train_data.txt',sep=':::',names=['id','title','genre','description'])  # here the txt has data with ':::' as separator
 test_result=pd.read_csv('/content/test_data_solution.txt',sep=':::',names=['id','title','genre','description'])
+
+# Creating training and testing datasets
+
 x_train=train['description']
 y_train=train['genre']
 x_test=test_result['description']
 y_test=test_result['genre']
+
+# Using the TfidfVectorizer to convert text features to numerical data
+
+vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7)
+
 X_train = vectorizer.fit_transform(x_train)[:15000]
 y_train = y_train[:15000]
 X_test = vectorizer.transform(x_test)[:1000]
 y_test = y_test[:1000]
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-import numpy as np
+
+# Using a SVC model for this task
+
 clf = SVC(kernel='linear')
 clf.fit(X_train, y_train)
+
+# Finding the accuracy of the model
+
 y_pred=clf.predict(X_test)
 print("Accuracy: ", accuracy_score(y_test, y_pred))
